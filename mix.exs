@@ -18,6 +18,8 @@ defmodule Detour.MixProject do
   end
 
   defp deps do
-    []
+    [
+      { :gen_smtp, "~> 0.15" }
+    ]
   end
 end
