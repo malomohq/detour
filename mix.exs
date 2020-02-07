@@ -7,7 +7,8 @@ defmodule Detour.MixProject do
       version: "0.0.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      dialyzer: dialyzer()
     ]
   end
 
@@ -20,7 +21,19 @@ defmodule Detour.MixProject do
 
   defp deps do
     [
-      { :gen_smtp, "~> 0.15" }
+      { :gen_smtp, "~> 0.15" },
+
+      #
+      # test
+      #
+
+      { :dialyxir, "~> 1.0.0-rc", only: [:dev], runtime: false }
+    ]
+  end
+
+  defp dialyzer do
+    [
+      plt_core_path: "./_build/#{Mix.env()}"
     ]
   end
 end
