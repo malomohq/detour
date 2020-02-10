@@ -86,5 +86,5 @@ defmodule Detour.AsseertionsTest do
           ^failure_message = error.message
       end
     end
-    end
+  end
 end
