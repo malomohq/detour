@@ -1,7 +1,7 @@
 # Detour
 
 Detour provides the ability to easily test email deliverability using
-simple-to-use assertions and a real SMTP server.
+simple-to-use assertions against a real SMTP server.
 
 ## Installation
 
@@ -23,10 +23,11 @@ ExUnit.start()
 Application.ensure_all_started(:detour)
 ```
 
-To start a `detour` server call `Detour.open/0` or `Detour.open/1`. Both
-functions will return a `%Detour{pid: pid, port: pos_integer}` struct.
+To start a `detour` server call `Detour.open/0` or `Detour.open/1` within a
+test. Both functions will return a `%Detour{pid: pid, port: pos_integer}`
+struct.
 
-`Detour.open/0` will start a `detour` server and assign a random port.
+`Detour.open/0` will start a `detour` server and assign a random open port.
 
 `Detour.open/1` will start a `detour` server on a port provided as the single
 argument. If an attempt is made to start a server on a port that is already in
@@ -36,14 +37,9 @@ port.
 
 ### Assertions
 
-`detour` provides the following assertions.
-
-* `assert_message_delivered/3` to ensure a message has successfully been sent
-* `refute_message_delivered/3` to ensure a message has not been sent
-* `assert_number_of_messages_delivered/3` to ensure the expected number of
-  messages has been delivered
-
 #### `assert_message_delivered/3`
+
+Ensure a message has successfully been sent.
 
 ```elixir
 test "a message has been delivered" do
@@ -65,6 +61,8 @@ end
 
 #### `refute_message_delivered/3`
 
+Ensure a message has not been sent.
+
 ```elixir
 test "a message has not been delivered" do
   detour = Detour.open()
@@ -84,6 +82,8 @@ end
 ```
 
 #### `assert_number_of_messages_delivered/3`
+
+Ensure the expected number of messages has been delivered.
 
 ```elixir
 test "the expected number of messages have been delivered" do
