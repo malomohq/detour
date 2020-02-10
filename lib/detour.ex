@@ -78,8 +78,10 @@ defmodule Detour do
   another process. When providing a port to `open/1` it's important to perform
   a shutdown, otherwise test processes using the same port can conflict.
   """
-  @spec shutdown(atom | pid, t) :: :ok | { :error, :not_found }
-  def shutdown(supervisor \\ Detour.Supervisor, detour) do
+  @spec shutdown(t, Keyword.t()) :: :ok | { :error, :not_found }
+  def shutdown(detour, opts \\ []) do
+    supervisor = Keyword.get(opts, :supervisor, Detour.Supervisor)
+    
     DynamicSupervisor.terminate_child(supervisor, detour.pid)
   end
 end

@@ -37,13 +37,13 @@ defmodule DetourTest do
 
       supervisor = Module.concat([Detour.Supervisor, id])
 
-      { :ok, _pid } = Detour.Supervisor.start_link(name: supervisor)
+      { :ok, _pid } = Detour.Supervisor.start_link([name: supervisor])
 
-      detour = Detour.open(supervisor: supervisor)
+      detour = Detour.open([supervisor: supervisor])
 
       assert %{ workers: 1 } = DynamicSupervisor.count_children(supervisor)
 
-      assert :ok = Detour.shutdown(supervisor, detour)
+      assert :ok = Detour.shutdown(detour, [supervisor: supervisor])
 
       assert %{ workers: 0 } = DynamicSupervisor.count_children(supervisor)
     end
