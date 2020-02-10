@@ -5,7 +5,14 @@ defmodule Detour.Supervisor do
   # client
   #
 
-  @spec start_link :: DynamicSupervisor.on_start()
+  @spec start_child(Keyword.t()) :: DynamicSupervisor.on_start_child()
+  def start_child(opts) do
+    spec = %{ id: Detour.Server, start: { Detour.Server, :start_link, [opts] } }
+
+    DynamicSupervisor.start_child(__MODULE__, spec)
+  end
+
+  @spec start_link :: Supervisor.on_start()
   def start_link do
     DynamicSupervisor.start_link(__MODULE__, :ok, name: Detour.Supervisor)
   end
