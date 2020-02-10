@@ -17,7 +17,7 @@ defmodule DetourTest do
 
   describe "open/1" do
     test "can specify a port" do
-      assert detour = %Detour{} = Detour.open(2525)
+      assert detour = %Detour{} = Detour.open(port: 2525)
 
       message = { "me@notyou.com", ["you@notme.com"], "HELLO" }
 
@@ -26,6 +26,26 @@ defmodule DetourTest do
       messages = Detour.Server.all(detour.pid)
 
       assert message in messages
+
+      Detour.shutdown(detour)
+    end
+  end
+
+  describe "shutdown/1" do
+    test "stops a server", tags do
+      id = to_string(Map.get(tags, :line))
+
+      supervisor = Module.concat([Detour.Supervisor, id])
+
+      { :ok, _pid } = Detour.Supervisor.start_link(name: supervisor)
+
+      detour = Detour.open(supervisor: supervisor)
+
+      assert %{ workers: 1 } = DynamicSupervisor.count_children(supervisor)
+
+      assert :ok = Detour.shutdown(supervisor, detour)
+
+      assert %{ workers: 0 } = DynamicSupervisor.count_children(supervisor)
     end
   end
 end
