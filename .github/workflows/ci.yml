@@ -56,5 +56,5 @@ jobs:
       - name: Run mix deps.get
         run: mix deps.get
 
-      - name: Run mix dialyzer
-        run: mix dialyzer
+      - name: Run mix test
+        run: mix test
