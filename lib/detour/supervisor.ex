@@ -9,7 +9,10 @@ defmodule Detour.Supervisor do
   def start_child(opts) do
     supervisor = Keyword.get(opts, :supervisor)
 
-    spec = %{ id: Detour.Server, start: { Detour.Server, :start_link, [opts] } }
+    spec = Map.new()
+    spec = Map.put(spec, :id, Detour.Server)
+    spec = Map.put(spec, :restart, :transient)
+    spec = Map.put(spec, :start, { Detour.Server, :start_link, [opts] })
 
     DynamicSupervisor.start_child(supervisor, spec)
   end
