@@ -44,7 +44,7 @@ defmodule Detour.MixProject do
       description: "Easily test email deliverability using simple-to-use assertions against a real SMTP server",
       maintainers: ["Anthony Smith"],
       licenses: ["MIT"],
-      link: %{
+      links: %{
         GitHub: "https://github.com/malomohq/detour-elixir",
         "Made by Malomo - Post-purchase experiences that customers love": "https://gomalomo.com"
       }
