@@ -5,7 +5,7 @@ defmodule Detour.MixProject do
     [
       app: :detour,
       version: "0.1.0",
-      elixir: "~> 1.8",
+      elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: dialyzer(),
@@ -22,13 +22,14 @@ defmodule Detour.MixProject do
 
   defp deps do
     [
-      { :gen_smtp, "~> 0.15" },
+      { :gen_smtp, "~> 1.0" },
 
       #
       # test
       #
 
-      { :dialyxir, "~> 1.0.0-rc", only: [:dev], runtime: false },
+      { :dialyxir, "~> 1.0", only: [:dev], runtime: false },
+
       { :ex_doc, ">= 0.0.0", only: [:dev], runtime: false }
     ]
   end
