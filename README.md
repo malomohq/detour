@@ -9,7 +9,7 @@ Add `detour` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:detour, "~> 0.1", only: :test}]
+  [{:detour, "~> 0.2", only: :test}]
 end
 ```
 
