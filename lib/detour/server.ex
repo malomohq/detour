@@ -34,7 +34,11 @@ defmodule Detour.Server do
     opts = Keyword.put(opts, :sessionoptions, [callbackoptions: [server: self()]])
     opts = Keyword.drop(opts, [:caller])
 
-    { :ok, _pid } = :gen_smtp_server.start_link(Detour.Session, [opts])
+    name = Module.concat(Detour.Session, to_string(opts[:port]))
+
+    { :ok, pid } = :gen_smtp_server.start(name, Detour.Session, opts)
+
+    true = Process.link(pid)
 
     { :ok, %{ caller: caller, messages: [] } }
   end

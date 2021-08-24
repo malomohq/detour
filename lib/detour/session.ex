@@ -1,6 +1,7 @@
 defmodule Detour.Session do
   @behaviour :gen_smtp_server_session
 
+  @impl true
   def init(hostname, _session_count, _address, opts) do
     banner = [hostname, " ESMTP"]
 
@@ -68,6 +69,12 @@ defmodule Detour.Session do
     state
   end
 
+  @impl true
+  def handle_STARTTLS(state) do
+    state
+  end
+
+  @impl true
   def terminate(reason, state) do
     { :ok, reason, state }
   end
